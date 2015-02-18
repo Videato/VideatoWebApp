@@ -46,7 +46,7 @@ function addCategoriesToHTML(jsonData) {
 								+ "<div class='tile-text-container'>" 
 									+ "<h2 id='category-title'>" + categoryTitle + "</h2>" 
 								+ "</div>" 
-								+ "<div style='background-color:blue;'>"
+								+ "<div style='background-color:grey;'>"
 									+ "<h3 style='padding: 0 30px;'>View the top ten trending videos for " + categoryTitle + "</h3>"
 								+ "</div>"
 							+ "</div>" 
