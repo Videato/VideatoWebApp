@@ -5,5 +5,5 @@ function getBaseUrl() {
 
 $(document).ready(function(){
 	var allVideosUrl = getBaseUrl() + '/allVideos';
-	$()
+	$('#all-videos-link').attr('href', allVideosUrl);
 });
