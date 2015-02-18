@@ -39,7 +39,7 @@
 		            <button id="menu-toggle" type="button" class="btn btn-default navbar-btn sidemenu-btn" aria-label="Left Align">
 					  <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 					</button>
-		            <a href="#" class="navbar-brand">Videato</a>
+		            <a id="nav-bar-title" href="#" class="navbar-brand">Videato</a>
 		        </div>
 		        <!-- Collection of nav links, forms, and other content for toggling -->
 		        <div id="navbarCollapse" class="collapse navbar-collapse">

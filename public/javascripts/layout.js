@@ -4,6 +4,7 @@ function getBaseUrl() {
 }
 
 $(document).ready(function(){
-	var allVideosUrl = getBaseUrl() + '/allVideos';
+	var allVideosUrl = getBaseUrl() + 'allVideos';
 	$('#all-videos-link').attr('href', allVideosUrl);
+	$('#nav-bar-title').attr('href', getBaseUrl());
 });
