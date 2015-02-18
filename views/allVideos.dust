@@ -1,0 +1,9 @@
+{>layout/}
+{<content}
+
+<div class="video-container">
+</div>
+
+
+<script type="text/javascript" src="/javascripts/all-videos.js"></script>
+{/content}

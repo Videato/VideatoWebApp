@@ -1,0 +1,10 @@
+{>layout/}
+{<content}
+
+<div class="video-container">
+	{+category/}
+</div>
+
+
+<!-- <script type="text/javascript" src="/javascripts/top10.js"></script> -->
+{/content}

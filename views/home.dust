@@ -1,11 +1,9 @@
 {>layout/}
 {<content}
-<h1>Videato</h1>
-<p>Videato on the internet</p>
 
-<script>
-$(document).ready(function(){
-	getCategories();
-});
-</script>
+<div class="categories-container">
+</div>
+
+<script type="text/javascript" src="/javascripts/home.js"></script>	
+
 {/content}
