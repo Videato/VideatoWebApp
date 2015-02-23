@@ -4,7 +4,10 @@ function getBaseUrl() {
 }
 
 $(document).ready(function(){
+	var addVideoUrl = getBaseUrl() + 'addVideo';
 	var allVideosUrl = getBaseUrl() + 'allVideos';
+
+	$('#add-video-link').attr('href', addVideoUrl);
 	$('#all-videos-link').attr('href', allVideosUrl);
 	$('#nav-bar-title').attr('href', getBaseUrl());
 });

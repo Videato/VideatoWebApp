@@ -11,6 +11,7 @@ var routes = require('./routes/home');
 var users = require('./routes/users');
 var allVideos = require('./routes/allVideos');
 var top10 = require('./routes/top10');
+var addVideo = require('./routes/addVideo');
 
 var app = express();
 
@@ -27,12 +28,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/allVideos', allVideos);
 app.use('/top10', top10);
+app.use('/addVideo', addVideo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

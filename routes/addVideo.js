@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/:id', function(req, res) {
-  	res.render('top10',  { categoryId: req.params.id});
+router.get('/', function(req, res) {
+  res.render('addVideo', { title: 'Add Video' });
 });
 
 module.exports = router;

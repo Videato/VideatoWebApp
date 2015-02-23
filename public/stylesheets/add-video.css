@@ -1,0 +1,8 @@
+.form-container {
+	padding-top: 40px;
+}
+
+.input-warning {
+	display:none;
+	color:red;
+}

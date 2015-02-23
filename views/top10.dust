@@ -1,10 +1,14 @@
 {>layout/}
 {<content}
 
-<div class="video-container">
-	{+category/}
+<div class="top10-video-container">
+	{categoryId}
 </div>
 
+<script type="text/javascript">
+	var categoryId = '{categoryId}';
+</script>
 
-<!-- <script type="text/javascript" src="/javascripts/top10.js"></script> -->
+<script type="text/javascript" src="/javascripts/top10.js"></script>
+
 {/content}
