@@ -11,7 +11,7 @@ function addVideosToHTML(jsonData) {
 	    video = jsonData[i];
 	    videoId = video.objectId;
 	    videoTitle = video.name;
-	    videoEmbedUrl = parseURL(video.url);
+	    videoEmbedUrl = parseFinalURL(video.url);
 	    videoDescription = video.description;
 	    htmlToInsert = "<div class='video-row col-sm-12'>" 
 	    				+ "<div class='col-md-5'>" 
@@ -26,8 +26,21 @@ function addVideosToHTML(jsonData) {
 	}
 }
 
-function parseURL(url) {
-	return url.replace('watch?v=', 'embed/');
+function parseFinalURL(url) {
+	/* link is a youtube url */
+	if (url.indexOf("youtube.com") > -1) {
+		return url.replace('watch?v=', 'embed/');
+	}
+	/* link is a vimeo url */
+	else if (url.indexOf("player.vimeo.com") < 0) {
+		/* Extract video id from the Vimeo Url. should be the last elemnt of the url */
+		var vimeoVidId = url.substring(url.lastIndexOf("/") + 1);
+		console.log("Adjusting vimeo video url with id: " + vimeoVidId);
+		return "http://player.vimeo.com/video/" + vimeoVidId + "?color=a8a8a8"; 
+	}
+	else {
+		return url;
+	}
 }
 
 function getVideos() {

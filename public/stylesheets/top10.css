@@ -1,0 +1,23 @@
+.video-row {
+	border-width: 1px;
+    border-bottom-width:1px;
+    border-bottom-color:grey;
+    border-bottom-style: solid;
+	padding-bottom:50px;
+	padding-top:50px;
+}
+
+.votes-display {
+	float:right;
+	padding-right:30%;
+}
+
+.vote-table {
+	height: 315px;
+	display: table;
+}
+
+.vote-container {
+	display: table-cell;
+	vertical-align: middle;
+}
