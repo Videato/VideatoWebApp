@@ -1,7 +1,7 @@
 {>layout/}
 {<content}
 
-<div class="video-container">
+<div class="all-videos-container">
 </div>
 
 

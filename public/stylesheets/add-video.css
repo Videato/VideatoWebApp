@@ -6,3 +6,10 @@
 	display:none;
 	color:red;
 }
+
+.add-video-container {
+	padding-top: 100px;
+}
+#inputUrl-error, #inputDescription-error, #inputTitle-error, #inputCategory-error {
+	color:red;
+}

@@ -21,3 +21,7 @@
 	display: table-cell;
 	vertical-align: middle;
 }
+
+.top10-video-container {
+	padding-top:100px;
+}

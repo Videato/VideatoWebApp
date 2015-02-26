@@ -7,6 +7,7 @@ function addVideosToHTML(jsonData) {
 	var videoDescription;
 	console.log('length of array: ' + jsonData.length);
 	
+	/* Add each video item html */
 	for (var i = 0; i < jsonData.length; i++) {
 	    video = jsonData[i];
 	    videoId = video.objectId;
@@ -22,7 +23,7 @@ function addVideosToHTML(jsonData) {
 						+ "</div>" 
 					+ "</div>";
 
-		$('.video-container').append(htmlToInsert);
+		$('.all-videos-container').append(htmlToInsert);
 	}
 }
 

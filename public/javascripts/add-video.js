@@ -6,6 +6,12 @@ function addCategoriesToHTML(jsonData) {
 	var categoryId;
 	var categoryTitle;
 	
+	/* Default blank selection for category dropdown */
+	$('.category-dropdown').append("<option></option>");
+
+	/* Add each category into the dropdown 
+	 * Change this later to access stored category list after home page is loaded
+	 */
 	for (var i = 0; i < jsonData.length; i++) {
 	    category = jsonData[i];
 	    categoryTitle = category.name;
@@ -60,122 +66,129 @@ function postVideo(videoObj) {
 }
 
 
-function parseURL(url) {
-	/* link is a youtube url */
+function parseURL(url, urlErrorElement) {
+	/* Link is standard a youtube url */
 	if (url.indexOf("youtube.com") > -1) {
+		/* Return the link that can be embed */
 		return url.replace('watch?v=', 'embed/');
 	}
-	/* link is a vimeo url */
+	/* Handle youtube url's in youtu.be format */
+	else if (url.indexOf("youtu.be") > -1) {
+		/* Extract video id and time start parameter from url */
+		var youtubeVidId = url.substring(url.lastIndexOf("/") + 1);
+		return "https:/youtube.com/embed/" + youtubeVidId; 
+	}
+	/* Link is a vimeo url */
 	else if (url.indexOf("vimeo")  > -1) {
 		/* Extract video id from the Vimeo Url. should be the last elemnt of the url */
 		var vimeoVidId = url.substring(url.lastIndexOf("/") + 1);
-		console.log("Adding vimeo video: " + vimeoVidId);
 		return "http://player.vimeo.com/video/" + vimeoVidId + "?color=a8a8a8"; 
 	}
 	else {
-		alert("Only Youtube and Vimeo Urls are currently supported");
-		return '';
+		return url;
 	}
 }
 
 $(document).ready(function(){
 	getCategories();
+	// just for the demos, avoids form submit
+	$.validator.setDefaults({
+	  debug: true,
+	  success: "valid"
+	});
+	/* Validation method for our supported video URL's 
+	 * We currently accept only vimeo and youtube vido links */
+	$.validator.addMethod("supportedVideoUrl", function(value, element) {
+		  	return (value.indexOf("youtube.com") > -1 || value.indexOf("vimeo.com") > -1);			
+		  }, 
+		  "* Only supported video sources are Youtube and Vimeo."
+	);
 
-	$("#addVideoBtn").click(function(){
-		/* Input form values */
-		var videoTitle = $("#inputTitle").val();
-        var videoDescription = $("#inputDescription").val();
-        var videoUrl = $("#inputUrl").val();;
-        var videoCategory = $("#inputCategory").val();
-
-        /* JQuery objects pointing to form containers for error feedback */
-        var titleContainer = $("#titleInputContainer");
-        var descriptionContainer = $("#descriptionInputContainer");
-        var urlContainer = $("#urlInputContainer");
-
-        /* JQuery objects pointing to divs containing error messages */
-        var titleError = $('#titleWarning');
-        var descriptionError = $('#descriptionWarning');
-        var urlError = $('#urlWarning');
-
-        /* Flag for valid input */
-        var validInputFlag = true;
-
-        /* Invalid video title */
-        if (videoTitle.length < 1) {
-        	titleContainer.addClass('has-error');	
-        	titleError.css('display', 'inline');
-        	validInputFlag = false;
-        }
-        else {
-        	if (titleContainer.hasClass('has-error')) {
-        		titleContainer.removeClass('has-error');
-        		titleError.css('display', 'none');	
-        	}
-        }
-
-        /* Invalid video description */
-        if (videoDescription.length < 1) {
-        	descriptionContainer.addClass('has-error');	
-        	descriptionError.css('display', 'inline');
-        	validInputFlag = false;
-        }
-        else {
-        	if (descriptionContainer.hasClass('has-error')) {
-        		descriptionContainer.removeClass('has-error');	
-        		descriptionError.css('display', 'none');	
-        	}
-        }
-
-        /* Invalid video url*/
-        if (videoUrl.length < 1) {
-        	urlContainer.addClass('has-error');	
-        	urlError.css('display', 'inline');
-        	validInputFlag = false;
-        }
-        else {
-/*        	urlContainer.validate();*/
-        	if(/^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(videoUrl)) {
-			  	
-			  	/* Currently only support youtube and vimeo videos for embedding */
-        		if (videoUrl.indexOf("youtube") < 0 && videoUrl.indexOf("vimeo") < 0) {
-        			alert("Youtube and Vimeo are the only supported video formats");
-        			validInputFlag = false;
-        		}
-        		else {
-        			videoUrl = parseURL(videoUrl);
-				  	if (urlContainer.hasClass('has-error')) {
-		        		urlContainer.removeClass('has-error');	
-		        		urlError.css('display', 'none');
-		        	}
-		        }
-			} 
+	/* Validation method for our youtube URL's 
+	 * The url must contain a video ID */
+	$.validator.addMethod("validYoutubeUrl", 
+		function(value, element) {
+		  	/* link is a youtube url, ignore otherwise */
+			if (value.indexOf("youtube.com") > -1) {
+				/* Check for valid youtube url */
+				return value.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
+			}	
 			else {
-			  	urlContainer.addClass('has-error');	
-        		urlError.css('display', 'inline');
-        		validInputFlag = false;
-			}
-        }
+				return true
+			}	
+		}, 
+		  "* Invalid Youtube URL. Just copy and paste the Youtube video URL from your browser."
+	);
 
-        /* Check if all input is valid */
-        if (validInputFlag) {
-        	var categoryId;
-        	var redirectUrl;
-        	for (var i = 0; i < categoryObjs.length; i++) {
-        		if (videoCategory === categoryObjs[i].title) {
-        			categoryId = categoryObjs[i].id;
-        		}
-        	}
-        	var videoObject = {
-        		"categoryId": categoryId,
-		        "description": videoDescription,
-		        "name": videoTitle,
-		        "url": videoUrl
-        	}
-        	redirectUrl = getBaseUrl() + 'top10/' + videoObject.categoryId;
-        	console.log("Valid Input, created video object");
-        	postVideo(videoObject);
-        	window.location.replace(redirectUrl);
-        }
-    });
+	/* Validation method for our vimeo URL's 
+	 * The url must contain a video ID */
+	$.validator.addMethod("validVimeoUrl", 
+		function(value, element) {
+		  	/* link is a vimeo url, ignore otherwise */
+		  	
+			if (value.indexOf("vimeo.com") > -1) {
+				/* Check for valid vimeo url */
+				console.log('checking vimeo url');
+				return value.substring(value.lastIndexOf("/") + 1).match(/^\d+$/);
+			}	
+			/* link is missing .com */
+			else if (value.indexOf("vimeo") > -1) {
+				return false
+			}
+			else {
+				return true
+			}	
+		}, 
+		  "* Invalid Vimeo URL. Just copy and paste the Vimeo video URL from your browser."
+	);	
+
+	$( "#addVideoForm" ).validate({
+	  submitHandler: function(form) {
+	    var inputTitle = $(form).find('#inputTitle')[0].value;
+	    var inputDescription = $(form).find('#inputDescription')[0].value;
+
+	    /* Parse URL into a valid embed form */
+	    var inputUrl = parseURL($(form).find('#inputUrl')[0].value);
+	    var inputCategory = $(form).find('#inputCategory')[0].value;
+
+	    var categoryId;
+    	var redirectUrl;
+    	for (var i = 0; i < categoryObjs.length; i++) {
+    		if (inputCategory === categoryObjs[i].title) {
+    			categoryId = categoryObjs[i].id;
+    		}
+    	}
+    	var videoObject = {
+    		"categoryId": inputCategory,
+	        "description": inputDescription,
+	        "name": inputTitle,
+	        "url": inputUrl
+    	}
+    	redirectUrl = getBaseUrl() + 'top10/' + videoObject.categoryId;
+    	console.log("Valid Input, created video object in category");
+    	postVideo(videoObject);
+    	window.location.replace(redirectUrl);
+	  },
+	  rules: {
+	    inputTitle: "required",
+	    inputDescription: "required",
+	    inputUrl: {
+	      required: true,
+	      url: true,
+	      supportedVideoUrl: true,
+	      validYoutubeUrl: true,
+	      validVimeoUrl: true
+	    },
+	    inputCategory: "required"
+	  },
+	  messages: {
+	  	inputTitle: "* Please provide a video title",
+	  	inputDescription: "* Please provide a video description",
+	  	inputUrl: {
+	  		required: "* Please provide a video url",
+	  		url: "* Please provide a valid 'https' url"
+	  	},
+	  	inputCategory: "* Please select a category."
+	  }
+	});	
 });

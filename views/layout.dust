@@ -3,81 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<title>Videato</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
 	<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
 	<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-</head>
 
-<body>
-	<!-- Beginning of wrapper (needed for side menu) -->
-	<div id="wrapper" class="toggled">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a id="add-video-link" href="#">
-                        Add Video
-                    </a>
-                    <a id="all-videos-link" href="#">
-                        All Videos
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- end of sidebar -->
-
-        <!-- Navigation bar -->
-		<div class="navbar-container">
-		    <nav role="navigation" class="navbar navbar-inverse">
-		        <!-- Brand and toggle get grouped for better mobile display -->
-		        <div class="navbar-header">
-		            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-		                <span class="sr-only">Toggle navigation</span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		                <span class="icon-bar"></span>
-		            </button>
-		            <button id="menu-toggle" type="button" class="btn btn-default navbar-btn sidemenu-btn" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-					</button>
-		            <a id="nav-bar-title" href="#" class="navbar-brand">Videato</a>
-		        </div>
-		        <!-- Collection of nav links, forms, and other content for toggling -->
-		        <div id="navbarCollapse" class="collapse navbar-collapse">
-		            <ul class="nav navbar-nav">
-		                <li class="active"><a href="#">Home</a></li>
-		            </ul>
-		            <form role="search" class="navbar-form navbar-right">
-		                <div class="form-group">
-		                    <input type="text" placeholder="Search" class="form-control">
-		                </div>
-		            </form>
-		        </div>
-		    </nav>
-		</div>
-		<!-- End of navigation bar -->
-
-		<!-- Beginning of page content -->
-		<div class="page-content">
-			{+content/}
-		</div>
-
-	</div>
-	<!-- End of wrapper (needed for side menu) -->
-	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-	<!-- Custom js -->
-	<script type="text/javascript" src="/javascripts/layout.js"></script>
+	 <!--Local libaries-->
+    <link href="/stylesheets/MetroJs.min.css" rel="stylesheet">
+    <link href="/stylesheets/slidebars.min.css" rel="stylesheet">
 	<!-- Custom CSS -->
     <link href="/stylesheets/sidebar.css" rel="stylesheet">
     <link href="/stylesheets/layout.css" rel="stylesheet">
@@ -85,17 +24,90 @@
     <link href="/stylesheets/home.css" rel="stylesheet">
     <link href="/stylesheets/add-video.css" rel="stylesheet">
     <link href="/stylesheets/top10.css" rel="stylesheet">
+</head>
 
-    <!--Local libaries-->
-    <link href="/stylesheets/MetroJs.min.css" rel="stylesheet">
+<body>
+
+        <!-- Navigation bar -->
+		<div class="navbar-container">
+		    <nav role="navigation" class="navbar navbar-default navbar-fixed-top sb-slide">
+		        <!-- Brand and toggle get grouped for better mobile display -->
+		            <div class="sb-toggle-left navbar-left">
+		            	<div class="navicon-line"></div>
+		            	<div class="navicon-line"></div>
+		            	<div class="navicon-line"></div>
+		            </div>
+		            
+		        <div class="container">
+		        	<div class="navbar-left">
+		        		<a id="nav-bar-title" href="#" class="navbar-brand navbar-title">Videato</a>
+		        	</div>
+			        <!-- Collection of nav links, forms, and other content for toggling -->
+			        <div id="navbarCollapse" class="collapse navbar-collapse">
+			            <ul class="nav navbar-nav">
+			                <li class="active"><a href="#">Home</a></li>
+			            </ul>
+			            <form role="search" class="navbar-form navbar-right">
+			                <div class="form-group">
+			                    <input type="text" placeholder="Search" class="form-control">
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+		    </nav>
+		</div>
+		<!-- End of navigation bar -->
+
+	<!-- Beginning of sidebar (needed for side menu) -->
+	<div id="sb-site">
+		<!-- Beginning of page content -->
+		<div class="page-content container">
+			{+content/}
+		</div>
+
+	</div>
+	<!-- End of sidebar (needed for side menu) -->
+	
+	<!-- Beginning of left sidebar extension -->
+	<div class="sb-slidebar sb-left">
+    	 <!-- Sidebar extension-->
+        <nav>
+            <ul class="sb-menu">
+                <li class="sb-close">
+                    <a id="add-video-link" href="/addVideo">
+                        Add Video
+                    </a>
+                </li>
+                <li class="sb-close">
+                    <a id="all-videos-link" href="/allVideos">
+                        All Videos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- end of sidebar extension-->
+    </div>
+    <!-- End of left sidebar extension-->
+	
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+	<!-- Custom js -->
+	<script type="text/javascript" src="/javascripts/layout.js"></script>
+
+
+
     <script type="text/javascript" src="/javascripts/MetroJs.min.js"></script>
-
-    <!-- Menu Toggle Script -->
+    <!-- Slidebars -->
+    <script src="/javascripts/slidebars.min.js"></script>
     <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+      (function($) {
+        $(document).ready(function() {
+          $.slidebars();
+        });
+      }) (jQuery);
     </script>
 
 
