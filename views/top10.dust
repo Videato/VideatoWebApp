@@ -7,7 +7,7 @@
 			<li class="category-title" role="presentation">
 				<div class="category-title">
 					<h4 id="categoryTitle">
-						Category Title Here
+						
 					</h4>
 				</div>
 			</li>
@@ -20,9 +20,9 @@
 		</ul>	
 	</div>
 	<div id="categoryTabContent" class="tab-content">
-		<div id="top10" class="tab-pane fade active in top10-video-container">
+		<div id="top10" class="tab-pane active top10-video-container">
 		</div>
-		<div id="all" class="tab-pane fade all-video-container">
+		<div id="allVideos" class="tab-pane all-video-container">
 		</div>
 	</div>
 </div>
@@ -33,5 +33,6 @@
 </script>
 
 <script type="text/javascript" src="/javascripts/top10.js"></script>
+<script type="text/javascript" src="/javascripts/category-all-videos.js"></script>
 
 {/content}

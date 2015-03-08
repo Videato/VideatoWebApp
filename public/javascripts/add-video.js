@@ -35,6 +35,7 @@ function postVideo(videoObj) {
 	console.log('Attempting to post a video');
 	var categoriesUrl = "https://videato-api.herokuapp.com/videos";
 	var returnData;
+	var redirectUrl = getBaseUrl() + 'top10/' + videoObj.categoryId;
 
 	$.ajax({
 		type:'POST',
@@ -44,6 +45,7 @@ function postVideo(videoObj) {
 	})
 	.done(function (data) {
 		console.log('successfully posted a video');
+		window.location.replace(redirectUrl);
 	})
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
@@ -138,22 +140,19 @@ $(document).ready(function(){
 	    var inputCategory = $(form).find('#inputCategory')[0].value;
 
 	    var categoryId;
-    	var redirectUrl;
     	for (var i = 0; i < categoryObjs.length; i++) {
     		if (inputCategory === categoryObjs[i].title) {
     			categoryId = categoryObjs[i].id;
     		}
     	}
     	var videoObject = {
-    		"categoryId": inputCategory,
+    		"categoryId": categoryId,
 	        "description": inputDescription,
 	        "name": inputTitle,
 	        "url": inputUrl
     	}
-    	redirectUrl = getBaseUrl() + 'top10/' + videoObject.categoryId;
     	console.log("Valid Input, created video object in category");
     	postVideo(videoObject);
-    	window.location.replace(redirectUrl);
 	  },
 	  rules: {
 	    inputTitle: "required",

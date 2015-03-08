@@ -1,4 +1,4 @@
-function addTop10ToHTML(jsonData) {
+function addAllVideosToHTML(jsonData) {
 	var htmlToInsert;
 	var video;
 	var videoId;
@@ -26,11 +26,11 @@ function addTop10ToHTML(jsonData) {
 							+ "<div class='vote-table'>" 
 								+ "<div class='vote-container'>" 
 									+ "<form action='https://videato-api.herokuapp.com/videos/" + videoId + "/vote' id='voteForm'>"
-										+ "<button type='submit' class='submit btn btn-default btn-lg' name='up' value='up'>"
+										+ "<button type='submit' class='submit btn btn-default btn-lg' name='allUp' value='allUp'>"
 											+ "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>"
 										+ "</button>"
 					    				+ "<h2 id='numberVotes' class='votes-display'>" + videoVotes + "</h2>"
-					    				+ "<button type='submit' class='submit btn btn-default btn-lg' name='down' value='down'>"
+					    				+ "<button type='submit' class='submit btn btn-default btn-lg' name='allDown' value='allDown'>"
 											+ "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>"
 										+ "</button>"
 									+ "</form>"
@@ -39,7 +39,7 @@ function addTop10ToHTML(jsonData) {
 						+ "</div>"
 					+ "</div>";
 
-		$('.top10-video-container').append(htmlToInsert);
+		$('.all-video-container').append(htmlToInsert);
 	}
 }
 
@@ -60,7 +60,7 @@ function parseAndLoadURL(url) {
 	}
 }
 
-function upVoteVideo(voteUrl, numVotes) {
+/*function upVoteVideo(voteUrl, numVotes) {
 	var totalUrl = voteUrl + '?up=true';
 	$.ajax({
 		type:'POST',
@@ -94,12 +94,12 @@ function downVoteVideo(voteUrl, numVotes) {
 		console.log(jqXHR);
 		console.log(status);
 	});
-}
+}*/
 
-function getCategoryVideos() {
+function getAllCategoryVideos() {
 	/* Variable categoryId is defined in top10.dust after 
 	 * the page recieves the category id from router */
-	var videosUrl = "https://videato-api.herokuapp.com/videos/category/" + categoryId + "?top=true";
+	var videosUrl = "https://videato-api.herokuapp.com/videos/category/" + categoryId;
 	var returnData;
 
 	console.log("GET top 10 url: " + videosUrl);
@@ -111,17 +111,17 @@ function getCategoryVideos() {
 		
 	})
 	.done(function (data) {
-		addTop10ToHTML(data);
+		addAllVideosToHTML(data);
 
 		$('button[type="submit"]').on('click', function() {
 		    var btn = $(this).val();
 		    var action = $(this).parent('#voteForm').attr('action');
 		    var numVotes = $(this).parent('#voteForm').children('#numberVotes');
-		    if(btn == 'up') 
+		    if(btn == 'allUp') 
 		    {
 		    	upVoteVideo(action, numVotes);
 		    }
-		    else if(btn == 'down')
+		    else if(btn == 'allDown')
 		    {
 		    	downVoteVideo(action, numVotes);
 		    }
@@ -134,24 +134,9 @@ function getCategoryVideos() {
 	});
 }
 
-function setCategoryTitle() {
-	var categories = jQuery.parseJSON(window.sessionStorage.getItem('categories'));
-
-	/* Loop through stored categories to get the category title to display
-	 * onthe page
-	 */
-	for (var i = 0; i < categories.length; i++) {
-	    category = categories[i];
-	    if(category.objectId === categoryId) {
-	    	console.log('found a match');
-	    	$('#categoryTitle').append(category.name);
-	    }
-	}
-}
-
 $(document).ready(function(){
-	getCategoryVideos();
-	setCategoryTitle();
+	getAllCategoryVideos();
+
 	// Disable the ENTER key altogether on the form inputs
 	$('form').find('.button').keypress(function(e) {
 	   if (e.which == 13) {
