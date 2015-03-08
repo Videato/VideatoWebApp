@@ -37,7 +37,7 @@ function addCategoriesToHTML(jsonData) {
 	    categoryTitle = category.name;
 	    categoryOnClickUrl = getBaseUrl() + 'top10/' + categoryId;
 	    htmlToInsert = "<a href='" + categoryOnClickUrl + "'>" 
-	    				+ "<div class='tile-container black col-md-4'>"
+	    				+ "<div class='tile-container black col-sm-6 col-md-4'>"
 		    				+ "<div class='live-tile accent' id='" + categoryId + "' data-mode='slide' data-stops='50%' data-stack='true'>" 
 								+ "<div class='tile-text-container'>" 
 									+ "<h2 id='category-title'>" + categoryTitle + "</h2>" 
