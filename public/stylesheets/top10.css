@@ -11,8 +11,12 @@
     border-bottom-width:1px;
     border-bottom-color:grey;
     border-bottom-style: solid;
-	padding-bottom:50px;
-	padding-top:50px;
+	padding-bottom:30px;
+	padding-top:30px;
+}
+
+.video-container {
+	padding:0px;
 }
 
 .votes-display {
@@ -29,7 +33,44 @@
 	display: table-cell;
 	vertical-align: middle;
 }
+.video-title-container {
+	padding-left:0px;
+	padding-bottom:5px;
+}
+.video-description-container {
+	padding-left:0px;
+	padding-top:5px;
+}
 
 a {
 	color:black;
+}
+
+iframe {
+	max-width:100%;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+	h1 {
+		margin-top:20px;
+		margin-bottom:30px;
+	}
+	.video-row {
+		padding-bottom:50px;
+		padding-top:50px;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }

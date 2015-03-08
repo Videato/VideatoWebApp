@@ -14,15 +14,29 @@ function addAllVideosToHTML(jsonData) {
 	    videoEmbedUrl = parseAndLoadURL(video.url);
 	    videoDescription = video.description;
 	    videoVotes = video.votes;
-	    htmlToInsert = "<div class='video-row col-sm-12'>" 
-	    				+ "<div class='col-md-5'>" 
+	    htmlToInsert = "<div class='video-row col-xs-12'>" 
+	    				/* Video title appears above iframe only on small and xs devices */
+						+ "<div class='col-xs-12 visible-xs-block visible-sm-block video-title-container'>" 
+							+ "<h1 id='video-title'>" + videoTitle + "</h1>"
+						+ "</div>" 
+
+						/* Video container div */
+	    				+ "<div class='video-container col-xs-10 col-md-5'>" 
 	    					+ "<iframe width='420' height='315' id='" + videoId + "' src='" + videoEmbedUrl + "'></iframe>" 
 						+ "</div>" 
-						+ "<div class='col-md-6'>" 
-							+ "<h1 id='video-title'>" + videoTitle + "</h1>" 
-							+ "<p id='video-description'>" + videoDescription + "</p>" 
+
+						/* Video title and description for display in medium sized devices and up */
+						+ "<div class='col-md-6 visible-md-block visible-lg-block'>" 
+							+ "<div class='col-md-12'>" 
+								+ "<h1 id='video-title'>" + videoTitle + "</h1>"
+							+ "</div>"  
+							+ "<div class='col-md-12'>" 
+								+ "<p id='video-description'>" + videoDescription + "</p>" 
+							+ "</div>" 
 						+ "</div>" 
-						+ "<div class='col-md-1'>"
+
+						/* Vote Container Div */ 
+						+ "<div class='col-xs-2 col-md-1'>"
 							+ "<div class='vote-table'>" 
 								+ "<div class='vote-container'>" 
 									+ "<form action='https://videato-api.herokuapp.com/videos/" + videoId + "/vote' id='voteForm'>"
@@ -37,6 +51,11 @@ function addAllVideosToHTML(jsonData) {
 								+ "</div>"
 							+ "</div>"
 						+ "</div>"
+
+						/* Description container for small and extra small devices */
+						+ "<div class='video-description-container col-xs-12 visible-xs-block visible-sm-block'>" 
+							+ "<p id='video-description'>" + videoDescription + "</p>" 
+						+ "</div>" 
 					+ "</div>";
 
 		$('.all-video-container').append(htmlToInsert);
