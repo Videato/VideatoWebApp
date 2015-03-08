@@ -5,8 +5,8 @@ function addVideosToHTML(jsonData) {
 	var videoTitle;
 	var videoEmbedUrl;
 	var videoDescription;
-	console.log('length of array: ' + jsonData.length);
-	
+	var videoVotes;
+
 	/* Add each video item html */
 	for (var i = 0; i < jsonData.length; i++) {
 	    video = jsonData[i];
@@ -14,13 +14,30 @@ function addVideosToHTML(jsonData) {
 	    videoTitle = video.name;
 	    videoEmbedUrl = parseFinalURL(video.url);
 	    videoDescription = video.description;
+	    videoVotes = video.votes;
 	    htmlToInsert = "<div class='video-row col-sm-12'>" 
 	    				+ "<div class='col-md-5'>" 
 	    					+ "<iframe width='420' height='315' id='" + videoId + "' src='" + videoEmbedUrl + "'></iframe>" 
-						+ "</div><div class='col-md-7'>" 
+						+ "</div>" 
+						+ "<div class='col-md-6'>" 
 							+ "<h1 id='video-title'>" + videoTitle + "</h1>" 
 							+ "<p id='video-description'>" + videoDescription + "</p>" 
 						+ "</div>" 
+						+ "<div class='col-md-1'>"
+							+ "<div class='vote-table'>" 
+								+ "<div class='vote-container'>" 
+									+ "<form action='https://videato-api.herokuapp.com/videos/" + videoId + "/vote' id='voteForm'>"
+										+ "<button type='submit' class='submit btn btn-default btn-lg' name='up' value='up'>"
+											+ "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>"
+										+ "</button>"
+					    				+ "<h2 id='numberVotes' class='votes-display'>" + videoVotes + "</h2>"
+					    				+ "<button type='submit' class='submit btn btn-default btn-lg' name='down' value='down'>"
+											+ "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>"
+										+ "</button>"
+									+ "</form>"
+								+ "</div>"
+							+ "</div>"
+						+ "</div>"
 					+ "</div>";
 
 		$('.all-videos-container').append(htmlToInsert);
@@ -56,6 +73,57 @@ function getVideos() {
 	})
 	.done(function (data) {
 		addVideosToHTML(data);
+
+		$('button[type="submit"]').on('click', function() {
+		    var btn = $(this).val();
+		    var action = $(this).parent('#voteForm').attr('action');
+		    var numVotes = $(this).parent('#voteForm').children('#numberVotes');
+		    if(btn == 'up') 
+		    {
+		    	upVoteVideo(action, numVotes);
+		    }
+		    else 
+		    {
+		    	downVoteVideo(action, numVotes);
+		    }
+		    return false;
+		});
+	})
+	.fail(function (jqXHR, status) {
+		console.log(jqXHR);
+		console.log(status);
+	});
+}
+
+function upVoteVideo(voteUrl, numVotes) {
+	var totalUrl = voteUrl + '?up=true';
+	$.ajax({
+		type:'POST',
+		url: voteUrl + '?up=true',
+		dataType: 'json',	
+		data: {}
+	})
+	.done(function (data) {
+		console.log('Successfully upvoted a video using: ' + totalUrl + ' num votes: ' + numVotes.html());
+		numVotes.html((parseInt(numVotes.html()) + 1).toString());
+	})
+	.fail(function (jqXHR, status) {
+		console.log(jqXHR);
+		console.log(status);
+	});
+}
+
+function downVoteVideo(voteUrl, numVotes) {
+	var totalUrl = voteUrl + '?up=false';
+	$.ajax({
+		type:'POST',
+		url: voteUrl + '?up=false',
+		dataType: 'json',	
+		data: {}
+	})
+	.done(function (data) {
+		console.log('Successfully downvoted a using: ' + totalUrl);
+		numVotes.html((parseInt(numVotes.html()) - 1).toString());
 	})
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
@@ -65,4 +133,12 @@ function getVideos() {
 
 $(document).ready(function(){
 	getVideos();
+
+	// Disable the ENTER key altogether on the form inputs
+	$('form').find('.button').keypress(function(e){
+	   if (e.which == 13) // Enter key is keycode 13
+	   {
+	       return false;
+	   }    
+	});
 });

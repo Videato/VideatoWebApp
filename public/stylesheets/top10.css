@@ -1,3 +1,11 @@
+.category-page-container {
+	padding-top:100px;
+}
+
+.category-title {
+	padding-right:50px;
+	padding-left:20px;
+}
 .video-row {
 	border-width: 1px;
     border-bottom-width:1px;
@@ -22,6 +30,6 @@
 	vertical-align: middle;
 }
 
-.top10-video-container {
-	padding-top:100px;
+a {
+	color:black;
 }

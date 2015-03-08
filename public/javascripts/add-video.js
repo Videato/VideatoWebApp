@@ -27,22 +27,8 @@ function addCategoriesToHTML(jsonData) {
 }
 
 function getCategories() {
-	console.log('Attempting to retrieve categories');
-	var categoriesUrl = "https://videato-api.herokuapp.com/categories";
-	var returnData;
-
-	$.ajax({
-		type:'GET',
-		url: categoriesUrl,
-		dataType: 'json',	
-	})
-	.done(function (data) {
-		addCategoriesToHTML(data);
-	})
-	.fail(function (jqXHR, status) {
-		console.log(jqXHR);
-		console.log(status);
-	});
+	console.log('Attempting to retrieve categories from local storage');
+	addCategoriesToHTML(jQuery.parseJSON(window.sessionStorage.getItem('categories')));
 }
 
 function postVideo(videoObj) {

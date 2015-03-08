@@ -1,12 +1,32 @@
 {>layout/}
 {<content}
 
-<div class="category-title">
-	<h1 id="categoryTitle">
-	</h1>
+<div class="container category-page-container">
+	<div class="category-nav-container">
+		<ul id="categoryTab" class="nav nav-tabs">
+			<li class="category-title" role="presentation">
+				<div class="category-title">
+					<h4 id="categoryTitle">
+						Category Title Here
+					</h4>
+				</div>
+			</li>
+			<li class="active top-10">
+				<a href="#top10" data-toggle="tab"> Top 10 </a>
+			</li>
+			<li class="all-videos">
+				<a href="#allVideos" data-toggle="tab"> All </a>
+			</li>		
+		</ul>	
+	</div>
+	<div id="categoryTabContent" class="tab-content">
+		<div id="top10" class="tab-pane fade active in top10-video-container">
+		</div>
+		<div id="all" class="tab-pane fade all-video-container">
+		</div>
+	</div>
 </div>
-<div class="container top10-video-container">
-</div>
+
 
 <script type="text/javascript">
 	var categoryId = '{categoryId}';

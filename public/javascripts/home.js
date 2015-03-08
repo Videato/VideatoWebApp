@@ -19,10 +19,6 @@ function addTileHoverEffect(categoryIdList) {
 	        $(this).liveTile("play");
 	        tileData.animationComplete = function(){};
 	    }
-	})
-	.each(function(idx, ele){
-	   var delay = idx * 1000; 
-	    $(ele).liveTile("play", delay);
 	});
 }
 
@@ -74,6 +70,7 @@ function getCategories() {
 	})
 	.done(function (data) {
 		addCategoriesToHTML(data);
+		window.sessionStorage.setItem('categories', JSON.stringify(data));
 	})
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
