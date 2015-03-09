@@ -7,7 +7,8 @@ function addTop10ToHTML(jsonData) {
 	var videoDescription;
 	var videoVotes;
 	
-	for (var i = 0; i < jsonData.length; i++) {
+	/* Add only top 10 to html */
+	for (var i = 0; i < 10; i++) {
 	    video = jsonData[i];
 	    videoId = video.objectId;
 	    videoTitle = video.name;
