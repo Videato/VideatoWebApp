@@ -4,6 +4,8 @@
 <div class="categories-container">
 </div>
 
+<div class="modal"></div>
+
 <script type="text/javascript" src="/javascripts/home.js"></script>	
 
 {/content}

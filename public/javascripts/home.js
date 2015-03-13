@@ -81,3 +81,10 @@ function getCategories() {
 $(document).ready(function(){
 	getCategories();
 });
+
+$body = $("body");
+/* Display loading bar when making ajax calls */
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading"); },
+    ajaxStop: function() { $body.removeClass("loading"); }    
+});

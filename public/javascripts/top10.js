@@ -123,7 +123,8 @@ function getCategoryVideos() {
 	var returnData;
 
 	console.log("GET top 10 url: " + videosUrl);
-
+	$body.addClass("loading");
+	
 	$.ajax({
 		type:'GET',
 		url: videosUrl,
@@ -131,6 +132,7 @@ function getCategoryVideos() {
 		
 	})
 	.done(function (data) {
+		$body.removeClass("loading")
 		addTop10ToHTML(data);
 
 		$('button[type="submit"]').on('click', function() {
@@ -179,3 +181,5 @@ $(document).ready(function(){
 	   }    
 	});
 });
+
+$body = $("body");
