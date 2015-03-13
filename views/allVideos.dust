@@ -4,6 +4,7 @@
 <div class="all-videos-container">
 </div>
 
+<div class="modal"></div>
 
 <script type="text/javascript" src="/javascripts/all-videos.js"></script>
 {/content}
