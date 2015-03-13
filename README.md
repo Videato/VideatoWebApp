@@ -2,4 +2,4 @@
 Web App for Videato
 
 Link to our website:
-https://videato-api.herokuapp.com/
+http://videato-env-ksj7hvqycf.elasticbeanstalk.com/
