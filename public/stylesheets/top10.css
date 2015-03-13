@@ -5,6 +5,8 @@
 .category-title {
 	padding-right:50px;
 	padding-left:20px;
+	color: #765f89;
+	font-size: 70px;
 }
 .video-row {
 	border-width: 1px;
@@ -13,6 +15,10 @@
     border-bottom-style: solid;
 	padding-bottom:30px;
 	padding-top:30px;
+}
+
+.all-videos .top-ten .active {
+	background-color: #765f89;
 }
 
 .video-container {
@@ -36,6 +42,7 @@
 .video-title-container {
 	padding-left:0px;
 	padding-bottom:5px;
+	color: #765f89;
 }
 .video-description-container {
 	padding-left:0px;
