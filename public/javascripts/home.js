@@ -8,7 +8,7 @@ function addTileHoverEffect(categoryIdList) {
 			idList += ', '
 		}
 	}
-	console.log ('tiles: ' + idList);
+
 	var $tiles = $(idList).liveTile({ 
 	    playOnHover:true,
 	    repeatCount: 0,

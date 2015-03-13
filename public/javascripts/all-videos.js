@@ -83,6 +83,7 @@ function parseFinalURL(url) {
 function getVideos() {
 	var videosUrl = "https://videato-api.herokuapp.com/videos";
 	var returnData;
+	$body.addClass("loading");
 
 	$.ajax({
 		type:'GET',
@@ -107,6 +108,7 @@ function getVideos() {
 		    }
 		    return false;
 		});
+		$body.removeClass("loading");
 	})
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
@@ -134,6 +136,7 @@ function upVoteVideo(voteUrl, numVotes) {
 
 function downVoteVideo(voteUrl, numVotes) {
 	var totalUrl = voteUrl + '?up=false';
+	
 	$.ajax({
 		type:'POST',
 		url: voteUrl + '?up=false',
@@ -149,7 +152,7 @@ function downVoteVideo(voteUrl, numVotes) {
 		console.log(status);
 	});
 }
-
+$body = $("body");
 $(document).ready(function(){
 	getVideos();
 
