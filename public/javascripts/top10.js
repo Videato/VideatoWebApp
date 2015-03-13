@@ -124,7 +124,7 @@ function getCategoryVideos() {
 
 	console.log("GET top 10 url: " + videosUrl);
 	$body.addClass("loading");
-	
+
 	$.ajax({
 		type:'GET',
 		url: videosUrl,
@@ -132,9 +132,7 @@ function getCategoryVideos() {
 		
 	})
 	.done(function (data) {
-		$body.removeClass("loading")
 		addTop10ToHTML(data);
-
 		$('button[type="submit"]').on('click', function() {
 		    var btn = $(this).val();
 		    var action = $(this).parent('#voteForm').attr('action');
@@ -149,6 +147,7 @@ function getCategoryVideos() {
 		    }
 		    return false;
 		});
+		$body.removeClass("loading");
 	})
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
@@ -173,6 +172,7 @@ function setCategoryTitle() {
 
 $(document).ready(function(){
 	getCategoryVideos();
+
 	setCategoryTitle();
 	// Disable the ENTER key altogether on the form inputs
 	$('form').find('.button').keypress(function(e) {
