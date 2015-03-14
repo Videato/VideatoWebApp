@@ -10,4 +10,14 @@ $(document).ready(function(){
 	$('#add-video-link').attr('href', addVideoUrl);
 	$('#all-videos-link').attr('href', allVideosUrl);
 	$('#nav-bar-title').attr('href', getBaseUrl());
+
+	$('#searchForm').on('submit', function(e){
+        e.preventDefault();
+        var searchField = $('#searchText').val();
+        
+        /* Only search if something was in the search box */
+        if (searchField.length > 0) {
+        	window.location=getBaseUrl() + 'searchResult/' + searchField;
+        }
+    });
 });

@@ -1,4 +1,4 @@
-function addTop10ToHTML(jsonData) {
+function addVideosToSearchHTML(jsonData) {
 	var htmlToInsert;
 	var video;
 	var videoId;
@@ -6,14 +6,20 @@ function addTop10ToHTML(jsonData) {
 	var videoEmbedUrl;
 	var videoDescription;
 	var videoVotes;
-		console.log(jsonData.length);
 
-	/* Add only top 10 to html */
-	for (var i = 0; i < 10 && i < jsonData.length; i++) {
+	var noVidsNotice = $('.no-vids-notice');
+	/* Show the user that the search query returned zero results */
+	if (jsonData.length <= 0) {
+		if(noVidsNotice.hasClass('hidden')) {
+			noVidsNotice.removeClass('hidden');
+		}
+	}
+	/* Add each video item html */
+	for (var i = 0; i < jsonData.length; i++) {
 	    video = jsonData[i];
 	    videoId = video.objectId;
 	    videoTitle = video.name;
-	    videoEmbedUrl = parseAndLoadURL(video.url);
+	    videoEmbedUrl = parseFinalURL(video.url);
 	    videoDescription = video.description;
 	    videoVotes = video.votes;
 	    htmlToInsert = "<div class='video-row col-xs-12'>" 
@@ -60,11 +66,11 @@ function addTop10ToHTML(jsonData) {
 						+ "</div>" 
 					+ "</div>";
 
-		$('.top10-video-container').append(htmlToInsert);
+		$('.search-result-container').append(htmlToInsert);
 	}
 }
 
-function parseAndLoadURL(url) {
+function parseFinalURL(url) {
 	/* link is a youtube url */
 	if (url.indexOf("youtube.com") > -1) {
 		return url.replace('watch?v=', 'embed/');
@@ -81,49 +87,9 @@ function parseAndLoadURL(url) {
 	}
 }
 
-function upVoteVideo(voteUrl, numVotes) {
-	var totalUrl = voteUrl + '?up=true';
-	$.ajax({
-		type:'POST',
-		url: totalUrl,
-		dataType: 'json',	
-		data: {}
-	})
-	.done(function (data) {
-		console.log('Successfully upvoted a video using: ' + totalUrl);
-		numVotes.html((parseInt(numVotes.html()) + 1).toString());
-	})
-	.fail(function (jqXHR, status) {
-		console.log(jqXHR);
-		console.log(status);
-	});
-}
-
-function downVoteVideo(voteUrl, numVotes) {
-	var totalUrl = voteUrl + '?up=false';
-	$.ajax({
-		type:'POST',
-		url: totalUrl,
-		dataType: 'json',	
-		data: {}
-	})
-	.done(function (data) {
-		console.log('Successfully downvoted a using: ' + totalUrl);
-		numVotes.html((parseInt(numVotes.html()) - 1).toString());
-	})
-	.fail(function (jqXHR, status) {
-		console.log(jqXHR);
-		console.log(status);
-	});
-}
-
-function getCategoryVideos() {
-	/* Variable categoryId is defined in top10.dust after 
-	 * the page recieves the category id from router */
-	var videosUrl = "https://videato-api.herokuapp.com/videos/category/" + categoryId + "?top=true";
+function getSearchVideos(searchQuery) {
+	var videosUrl = "https://videato-api.herokuapp.com/videos?search=" + searchQuery;
 	var returnData;
-
-	console.log("GET top 10 url: " + videosUrl);
 	$body.addClass("loading");
 
 	$.ajax({
@@ -133,7 +99,8 @@ function getCategoryVideos() {
 		
 	})
 	.done(function (data) {
-		addTop10ToHTML(data);
+		addVideosToSearchHTML(data);
+
 		$('button[type="submit"]').on('click', function() {
 		    var btn = $(this).val();
 		    var action = $(this).parent('#voteForm').attr('action');
@@ -142,7 +109,7 @@ function getCategoryVideos() {
 		    {
 		    	upVoteVideo(action, numVotes);
 		    }
-		    else if(btn == 'down')
+		    else 
 		    {
 		    	downVoteVideo(action, numVotes);
 		    }
@@ -156,31 +123,52 @@ function getCategoryVideos() {
 	});
 }
 
-function setCategoryTitle() {
-	var categories = jQuery.parseJSON(window.sessionStorage.getItem('categories'));
-
-	/* Loop through stored categories to get the category title to display
-	 * onthe page
-	 */
-	for (var i = 0; i < categories.length; i++) {
-	    category = categories[i];
-	    if(category.objectId === categoryId) {
-	    	console.log('found a match');
-	    	$('#categoryTitle').append(category.name);
-	    }
-	}
+function upVoteVideo(voteUrl, numVotes) {
+	var totalUrl = voteUrl + '?up=true';
+	$.ajax({
+		type:'POST',
+		url: voteUrl + '?up=true',
+		dataType: 'json',	
+		data: {}
+	})
+	.done(function (data) {
+		console.log('Successfully upvoted a video using: ' + totalUrl + ' num votes: ' + numVotes.html());
+		numVotes.html((parseInt(numVotes.html()) + 1).toString());
+	})
+	.fail(function (jqXHR, status) {
+		console.log(jqXHR);
+		console.log(status);
+	});
 }
 
-$(document).ready(function(){
-	getCategoryVideos();
+function downVoteVideo(voteUrl, numVotes) {
+	var totalUrl = voteUrl + '?up=false';
+	
+	$.ajax({
+		type:'POST',
+		url: voteUrl + '?up=false',
+		dataType: 'json',	
+		data: {}
+	})
+	.done(function (data) {
+		console.log('Successfully downvoted a using: ' + totalUrl);
+		numVotes.html((parseInt(numVotes.html()) - 1).toString());
+	})
+	.fail(function (jqXHR, status) {
+		console.log(jqXHR);
+		console.log(status);
+	});
+}
+$body = $("body");
 
-	setCategoryTitle();
+$(document).ready(function(){
+	getSearchVideos(searchQuery);
+
 	// Disable the ENTER key altogether on the form inputs
-	$('form').find('.button').keypress(function(e) {
-	   if (e.which == 13) {
+	$('form').find('.button').keypress(function(e){
+	   if (e.which == 13) // Enter key is keycode 13
+	   {
 	       return false;
 	   }    
 	});
 });
-
-$body = $("body");

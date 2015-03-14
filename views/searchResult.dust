@@ -1,0 +1,17 @@
+{>layout/}
+{<content}
+
+<div class="search-result-container">
+	<div class="no-vids-notice hidden">
+		<h2> Your search returned 0 results. </h2>
+	</div>	
+</div>
+
+<div class="modal"></div>
+
+<script type="text/javascript" src="/javascripts/search-result.js"></script>
+
+<script type="text/javascript">
+	var searchQuery = '{searchQuery}';
+</script>
+{/content}

@@ -25,6 +25,7 @@
     <link href="/stylesheets/home.css" rel="stylesheet">
     <link href="/stylesheets/add-video.css" rel="stylesheet">
     <link href="/stylesheets/top10.css" rel="stylesheet">
+    <link href="/stylesheets/search-result.css" rel="stylesheet">
 </head>
 
 <body>
@@ -48,9 +49,9 @@
 			            <ul class="nav navbar-nav">
 			                <li class="active"><a href="#">Home</a></li>
 			            </ul>
-			            <form role="search" class="navbar-form navbar-right">
+			            <form id="searchForm" role="search" class="navbar-form navbar-right">
 			                <div class="form-group">
-			                    <input type="text" placeholder="Search" class="form-control">
+			                    <input type="text" placeholder="Search" class="form-control" name="search" id="searchText">
 			                </div>
 			            </form>
 			        </div>

@@ -12,6 +12,7 @@ var users = require('./routes/users');
 var allVideos = require('./routes/allVideos');
 var top10 = require('./routes/top10');
 var addVideo = require('./routes/addVideo');
+var searchResult = require('./routes/search');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/users', users);
 app.use('/allVideos', allVideos);
 app.use('/top10', top10);
 app.use('/addVideo', addVideo);
+app.use('/searchResult', searchResult);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
