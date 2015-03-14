@@ -8,11 +8,16 @@ function addVideosToSearchHTML(jsonData) {
 	var videoVotes;
 
 	var noVidsNotice = $('.no-vids-notice');
+	var searchResultHeader = $('.search-result-header');
 	/* Show the user that the search query returned zero results */
 	if (jsonData.length <= 0) {
 		if(noVidsNotice.hasClass('hidden')) {
 			noVidsNotice.removeClass('hidden');
+			searchResultHeader.addClass('hidden');
 		}
+	}
+	else {
+		searchResultHeader.html('Search results for: ' + searchQuery);
 	}
 	/* Add each video item html */
 	for (var i = 0; i < jsonData.length; i++) {

@@ -5,6 +5,9 @@
 	<div class="no-vids-notice hidden">
 		<h2> Your search returned 0 results. </h2>
 	</div>	
+	<div class="search-result-notice">
+		<h2 class="search-result-header"></h2>
+	</div>	
 </div>
 
 <div class="modal"></div>

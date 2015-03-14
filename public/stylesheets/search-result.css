@@ -1,7 +1,10 @@
-.search-result-container {
+.search-result-container, .search-result-notice, .no-vids-notice {
 	padding-top: 50px;
 }
 
-.no-vids-notice {
-	padding-top: 50px;
+.search-result-notice {
+	border-width: 1px;
+    border-bottom-width:1px;
+    border-bottom-color:grey;
+    border-bottom-style: solid;
 }
