@@ -43,7 +43,7 @@ function addCategoriesToHTML(jsonData) {
 									+ "<h2 id='category-title'>" + categoryTitle + "</h2>" 
 								+ "</div>" 
 								//+ "<div style='background-color:grey;'>"
-								+ "<div style='background-image: url(images/" + categoryTitle + ".png);'>"
+								+ "<div style='background-image: url(../images/" + categoryTitle + ".png);'>"
 									//+ "<h3 style='padding: 0 30px;'>View the top ten trending videos for " + categoryTitle + "</h3>"
 								+ "</div>"
 							+ "</div>" 
