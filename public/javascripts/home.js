@@ -29,12 +29,14 @@ function addCategoriesToHTML(jsonData) {
 	var categoryTitle;
 	var categoryOnClickUrl;
 	var categoryIdList = [];
+	var lowerCaseTitle;
 	
 	for (var i = 0; i < jsonData.length; i++) {
 	    category = jsonData[i];
 	    categoryId = category.objectId;
 	    categoryIdList[i] = categoryId;
 	    categoryTitle = category.name;
+	    lowerCaseTitle = categoryTitle.toLowerCase();
 	    categoryOnClickUrl = getBaseUrl() + 'top10/' + categoryId;
 	    htmlToInsert = "<a href='" + categoryOnClickUrl + "'>" 
 	    				+ "<div class='tile-container mauve col-sm-6 col-md-4'>"
@@ -43,7 +45,7 @@ function addCategoriesToHTML(jsonData) {
 									+ "<h2 id='category-title'>" + categoryTitle + "</h2>" 
 								+ "</div>" 
 								//+ "<div style='background-color:grey;'>"
-								+ "<div style='background-image: url(../images/" + categoryTitle + ".png);'>"
+								+ "<div style='background-image: url(../images/" + lowerCaseTitle + ".png);'>"
 									//+ "<h3 style='padding: 0 30px;'>View the top ten trending videos for " + categoryTitle + "</h3>"
 								+ "</div>"
 							+ "</div>" 
