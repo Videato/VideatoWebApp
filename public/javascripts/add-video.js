@@ -55,17 +55,13 @@ function postVideo(videoObj) {
 
 
 function parseURL(url, urlErrorElement) {
-	/* Link is standard a youtube url */
-	if (url.indexOf("youtube.com") > -1) {
-		/* Return the link that can be embed */
-		return url.replace('watch?v=', 'embed/');
-	}
-	/* Handle youtube url's in youtu.be format */
-	else if (url.indexOf("youtu.be") > -1) {
-		/* Extract video id and time start parameter from url */
-		var youtubeVidId = url.substring(url.lastIndexOf("/") + 1);
-		return "https:/youtube.com/embed/" + youtubeVidId; 
-	}
+
+	var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+	var match = url.match(regExp);
+	if (match && match[2].length == 11) {
+		console.log ('Returning: https:/youtube.com/embed/' + match[2]);
+	  	return "https:/youtube.com/embed/" + match[2];
+	} 
 	/* Link is a vimeo url */
 	else if (url.indexOf("vimeo")  > -1) {
 		/* Extract video id from the Vimeo Url. should be the last elemnt of the url */
@@ -96,13 +92,19 @@ $(document).ready(function(){
 	 * The url must contain a video ID */
 	$.validator.addMethod("validYoutubeUrl", 
 		function(value, element) {
-		  	/* link is a youtube url, ignore otherwise */
-			if (value.indexOf("youtube.com") > -1) {
-				/* Check for valid youtube url */
-				return value.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
+		  	/* link is a youtube url, ignore otherwise */		  	
+			if (value.indexOf("youtube.com") > -1 || value.indexOf("youtu.be") > -1) {
+				var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+				var match = value.match(regExp);
+				if (match && match[2].length == 11) {
+				   return true;
+				} 
+				else {
+				   return false;
+				}
 			}	
 			else {
-				return true
+				return true;
 			}	
 		}, 
 		  "* Invalid Youtube URL. Just copy and paste the Youtube video URL from your browser."
