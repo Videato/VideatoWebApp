@@ -1,12 +1,24 @@
+h1 {
+	color: #765f89;
+	font-weight: bold;
+}
+
+h4 {
+	font-weight: bold;
+}
+
 .category-page-container {
 	padding-top:100px;
+}
+
+.category-nav-container {
+	border-bottom: 1px solid gray;
 }
 
 .category-title {
 	padding-right:50px;
 	padding-left:20px;
 	color: #765f89;
-	font-size: 70px;
 }
 .video-row {
 	border-width: 1px;
