@@ -79,7 +79,7 @@ function parseAndLoadURL(url) {
 	}
 }
 
-/*function upVoteVideo(voteUrl, numVotes) {
+function upVoteVideo(voteUrl, numVotes) {
 	var totalUrl = voteUrl + '?up=true';
 	$.ajax({
 		type:'POST',
@@ -94,6 +94,7 @@ function parseAndLoadURL(url) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
+		window.alert("Sorry, you already voted for that video. CAll a motha fuqqin oompa loompa if you got problams");
 	});
 }
 
@@ -112,8 +113,9 @@ function downVoteVideo(voteUrl, numVotes) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
+		window.alert("Sorry, you already voted for that video. CAll a motha fuqqin oompa loompa if you got problams");
 	});
-}*/
+}
 
 function getAllCategoryVideos() {
 	/* Variable categoryId is defined in top10.dust after 
