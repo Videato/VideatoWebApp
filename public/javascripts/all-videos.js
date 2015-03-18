@@ -131,7 +131,7 @@ function upVoteVideo(voteUrl, numVotes) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
-		window.alert("Sorry, you already voted for that video. CAll a motha fuqqin oompa loompa if you got problams");
+		window.alert("Sorry, you already voted for that video.");
 	});
 }
 
@@ -151,7 +151,7 @@ function downVoteVideo(voteUrl, numVotes) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
-		window.alert("Sorry, you already voted for that video. CAll a motha fuqqin oompa loompa if you got problams");
+		window.alert("Sorry, you already voted for that video.");
 	});
 }
 $body = $("body");

@@ -143,6 +143,7 @@ function upVoteVideo(voteUrl, numVotes) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
+		window.alert("Sorry, you already voted for that video.");
 	});
 }
 
@@ -162,6 +163,7 @@ function downVoteVideo(voteUrl, numVotes) {
 	.fail(function (jqXHR, status) {
 		console.log(jqXHR);
 		console.log(status);
+		window.alert("Sorry, you already voted for that video.");
 	});
 }
 $body = $("body");
